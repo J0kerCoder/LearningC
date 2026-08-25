@@ -41,14 +41,7 @@ void pop_move(char arr[3][3], int row , int col )
     while (1)
     {
         printf("请输入行和列（1-3）：");
-        if (scanf("%d %d", &i, &j) != 2)
-        {
-            printf("输入格式错误，请重新输入\n");
-            while (getchar() != '\n')
-            {
-            }
-            continue;
-        }
+        scanf("%d %d", &i, &j);
         i--;
         j--;
         if (i < 0 || i >= row || j < 0 || j >= col || arr[i][j] != ' ')
