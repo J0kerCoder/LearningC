@@ -3,14 +3,25 @@
 void mune()
 {
     printf("**********************\n");
-    printf("******1.开始游戏*******\n");
-    printf("******0.结束游戏*******\n");
+    printf("******1.开始游戏******\n");
+    printf("******0.结束游戏******\n");
     printf("**********************\n");
 }
 
+void game()
+{
+    char broad[ROWS][COLS] = {0};
+    char answer[ROWS][COLS] = {0};
+    newbroad(broad, ROWS, COLS, '*');
+    newbroad(answer, ROWS, COLS, '0');
+    printbroad(broad, ROW, COL);
+    addbomb(answer,ROW,COL);
+    printbroad(answer, ROW, COL);
+}
 
 int main()
 {
+    srand((unsigned int)time(NULL));
     int input = 0;
     do
     {
@@ -21,7 +32,7 @@ int main()
         {
         case 1:
             printf("开始游戏\n");
-            //game();
+            game();
             break;
         case 0:
             printf("游戏结束\n");
