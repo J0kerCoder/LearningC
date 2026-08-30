@@ -1,5 +1,7 @@
 #include "game.h"
 
+
+// 初始化棋盘，将所有位置设置为空格
 void new_arr(char arr[3][3], int row , int col )
 {
     for (int i = 0; i < row; i++)
@@ -12,6 +14,7 @@ void new_arr(char arr[3][3], int row , int col )
     }
 }
 
+// 逐行打印棋盘内容，并用分隔线区分各个格子
 void print_arr(char broad[3][3], int row , int col )
 {
     for (int i = 0; i < row; i++)
@@ -34,6 +37,7 @@ void print_arr(char broad[3][3], int row , int col )
     }
 }
 
+// 循环读取玩家落子位置，直到输入有效且目标位置为空
 void pop_move(char arr[3][3], int row , int col )
 {
     int i = 0;
@@ -41,18 +45,22 @@ void pop_move(char arr[3][3], int row , int col )
     while (1)
     {
         printf("请输入行和列（1-3）：");
+    // 随机生成坐标，直到找到空位置作为电脑的落子位置
         scanf("%d %d", &i, &j);
         i--;
         j--;
         if (i < 0 || i >= row || j < 0 || j >= col || arr[i][j] != ' ')
         {
             printf("位置无效或已被占用，请重新输入\n");
+        // 检查棋盘是否已经没有空位置：满盘返回 1，否则返回 0
             continue;
         }
         arr[i][j] = '*';
         break;
     }
 }
+    // 判断行、列和两条对角线是否形成三连
+    // 返回 '*' 表示玩家获胜，'#' 表示电脑获胜，'U' 表示平局，'C' 表示继续
 
 
 void com_move(char arr[3][3], int row , int col )
@@ -82,7 +90,6 @@ int if_full(char arr[3][3], int row , int col)
             {
                 return 0;
             }
-            
         }
         
     }
