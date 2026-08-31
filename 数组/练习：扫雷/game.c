@@ -1,4 +1,4 @@
-
+#include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.h>
 
 void newbroad( char arr[ROWS][COLS], int row , int col , char x)
 {
@@ -38,4 +38,57 @@ void addbomb(char arr[ROWS][COLS], int row, int col)
             count++;
         }
     }
+}
+
+int stabomb( char answer[ROWS][COLS], char broad[ROWS][COLS], int row, int col)
+{
+    int x = 0;
+    int y = 0;
+    int count = 0;
+    int hidden = 0;
+    printf("请输入坐标：");
+    scanf("%d%d", &x , &y);
+
+    if (x < 1 || x > row || y < 1 || y > col)
+    {
+        printf("坐标越界，请重新输入\n");
+        return 1;
+    }
+
+    if (answer[x][y] == '1')
+    {
+        printf("被炸死了\n");
+        printbroad(answer, row, col);
+        return 0;
+    }
+
+    if (broad[x][y] != '*')
+    {
+        printf("该位置已打开，请重新输入\n");
+        return 1;
+    }
+
+    count = answer[x-1][y-1]+answer[x][y-1]+answer[x-1][y]+answer[x+1][y-1]+answer[x-1][y+1]+answer[x][y+1]+answer[x+1][y]+answer[x+1][y+1]-8*'0';
+
+    broad[x][y] = count + '0';
+
+    for (int i = 1; i <= row; i++)
+    {
+        for (int j = 1; j <= col; j++)
+        {
+            if (answer[i][j] == '0' && broad[i][j] == '*')
+            {
+                hidden++;
+            }
+        }
+    }
+
+    if (hidden == 0)
+    {
+        printf("恭喜你赢了!\n");
+        printbroad(broad, row, col);
+        return 2;
+    }
+
+    return 1;
 }

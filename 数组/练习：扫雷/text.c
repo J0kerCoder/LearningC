@@ -1,4 +1,5 @@
 #include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.h>
+#include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.c>
 
 void mune()
 {
@@ -14,9 +15,19 @@ void game()
     char answer[ROWS][COLS] = {0};
     newbroad(broad, ROWS, COLS, '*');
     newbroad(answer, ROWS, COLS, '0');
-    printbroad(broad, ROW, COL);
-    addbomb(answer,ROW,COL);
-    printbroad(answer, ROW, COL);
+    addbomb(answer, ROW, COL);
+
+    while (1)
+    {
+        printbroad(broad, ROW, COL);
+        printbroad(answer, ROW, COL);
+        int ret = stabomb(answer, broad, ROW, COL);
+
+        if (ret == 0 || ret == 2)
+        {
+            break;
+        }
+    }
 }
 
 int main()
