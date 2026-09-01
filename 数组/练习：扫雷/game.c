@@ -1,4 +1,3 @@
-#include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.h>
 
 void newbroad( char arr[ROWS][COLS], int row , int col , char x)
 {

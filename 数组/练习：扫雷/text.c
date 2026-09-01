@@ -1,5 +1,4 @@
-#include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.h>
-#include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.c>
+#include "game.h"
 
 void mune()
 {

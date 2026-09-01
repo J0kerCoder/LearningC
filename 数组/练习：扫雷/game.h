@@ -17,4 +17,3 @@ void addbomb(char arr[ROWS][COLS], int row, int col);
 
 int stabomb(char answer[ROWS][COLS], char broad[ROWS][COLS], int row, int col);
 
-//void printbroad( char arr[ROWS][COLS], int row , int col);
