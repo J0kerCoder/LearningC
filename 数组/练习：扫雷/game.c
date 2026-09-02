@@ -1,3 +1,4 @@
+#include "game.h"
 
 void newbroad( char arr[ROWS][COLS], int row , int col , char x)
 {
@@ -39,6 +40,45 @@ void addbomb(char arr[ROWS][COLS], int row, int col)
     }
 }
 
+int get_bomb_count(char answer[ROWS][COLS], int x, int y)
+{
+    return answer[x-1][y-1]
+    +answer[x][y-1]
+    +answer[x-1][y]
+    +answer[x+1][y-1]
+    +answer[x-1][y+1]
+    +answer[x][y+1]
+    +answer[x+1][y]
+    +answer[x+1][y+1]-8*'0';
+}
+
+void open_empty(char answer[ROWS][COLS], char broad[ROWS][COLS], int x, int y)
+{
+    if (broad[x][y] != '*')
+    {
+        return ;
+    }
+    if (x < 1 || x > ROW || y < 1 || y > COL)
+    {
+        return ;
+    }
+    
+    int count = get_bomb_count(answer,x,y);
+    broad[x][y] = count + '0';
+    if (count == 0 )
+    {
+        for (int i = x - 1; i <= x+1; i++)
+        {
+            for (int j = y - 1; j <= y+1; j++)
+            {
+                open_empty(answer,broad,i,j);
+            }
+        }
+        
+    }
+    
+}
+
 int stabomb( char answer[ROWS][COLS], char broad[ROWS][COLS], int row, int col)
 {
     int x = 0;
@@ -67,9 +107,7 @@ int stabomb( char answer[ROWS][COLS], char broad[ROWS][COLS], int row, int col)
         return 1;
     }
 
-    count = answer[x-1][y-1]+answer[x][y-1]+answer[x-1][y]+answer[x+1][y-1]+answer[x-1][y+1]+answer[x][y+1]+answer[x+1][y]+answer[x+1][y+1]-8*'0';
-
-    broad[x][y] = count + '0';
+    open_empty(answer,broad,x,y);
 
     for (int i = 1; i <= row; i++)
     {
