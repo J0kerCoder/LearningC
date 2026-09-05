@@ -1,4 +1,4 @@
-#include "game.h"
+#include <C:\Users\井晨旭\Desktop\LearningC\数组\练习：扫雷\game.c>
 
 // 显示扫雷游戏的主菜单。
 void mune()
@@ -10,7 +10,7 @@ void mune()
     printf("**********************\n");
 }
 
-// 开始一局扫雷游戏，并持续接收玩家的坐标输入。
+// 开始一局扫雷游戏，并持续接收玩家的操作和坐标输入。
 void game()
 {
     // broad 是玩家看到的棋盘：未翻开的格子用 '*' 表示，

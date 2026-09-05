@@ -15,8 +15,13 @@ void newbroad( char arr[ROWS][COLS], int row , int col , char x)
 
 void printbroad( char arr[ROWS][COLS], int row , int col)
 {
+    for (int i = 0; i < col+1; i++)
+    {
+        printf("%d ",i);
+    }
     for (int i = 1; i < row+1 ; i++)
     {
+        printf("%d ",i);
         for (int j = 1; j < col+1; j++)
         {
             printf(" %c",arr[i][j]);
@@ -54,11 +59,15 @@ int get_bomb_count(char answer[ROWS][COLS], int x, int y)
 
 void open_empty(char answer[ROWS][COLS], char broad[ROWS][COLS], int x, int y)
 {
+    if (x < 1 || x > ROW || y < 1 || y > COL)
+    {
+        return ;
+    }
     if (broad[x][y] != '*')
     {
         return ;
     }
-    if (x < 1 || x > ROW || y < 1 || y > COL)
+    if (answer[x][y] == '1')
     {
         return ;
     }
@@ -81,16 +90,64 @@ void open_empty(char answer[ROWS][COLS], char broad[ROWS][COLS], int x, int y)
 
 int stabomb( char answer[ROWS][COLS], char broad[ROWS][COLS], int row, int col)
 {
+    char input = 0;
     int x = 0;
     int y = 0;
     int count = 0;
     int hidden = 0;
-    printf("请输入坐标：");
-    scanf("%d%d", &x , &y);
+    int flag_count = 0;
+    printf("请输入操作和坐标（o打开/f插旗）：");
+    scanf(" %c%d%d", &input, &x, &y);
 
     if (x < 1 || x > row || y < 1 || y > col)
     {
         printf("坐标越界，请重新输入\n");
+        return 1;
+    }
+
+    if (input == 'f' || input == 'F')
+    {
+        if (broad[x][y] == '*')
+        {
+            for (int i = 1; i <= row; i++)
+            {
+                for (int j = 1; j <= col; j++)
+                {
+                    if (broad[i][j] == 'F')
+                    {
+                        flag_count++;
+                    }
+                }
+            }
+            if (flag_count >= 10)
+            {
+                printf("旗帜数量已达到上限\n");
+            }
+            else
+            {
+                broad[x][y] = 'F';
+            }
+        }
+        else if (broad[x][y] == 'F')
+        {
+            broad[x][y] = '*';
+        }
+        else
+        {
+            printf("已经打开的格子不能插旗\n");
+        }
+        return 1;
+    }
+
+    if (input != 'o' && input != 'O')
+    {
+        printf("操作错误，请输入 o 或 f\n");
+        return 1;
+    }
+
+    if (broad[x][y] == 'F')
+    {
+        printf("该位置已插旗，请先取消旗帜\n");
         return 1;
     }
 
@@ -113,7 +170,8 @@ int stabomb( char answer[ROWS][COLS], char broad[ROWS][COLS], int row, int col)
     {
         for (int j = 1; j <= col; j++)
         {
-            if (answer[i][j] == '0' && broad[i][j] == '*')
+            if (answer[i][j] == '0'
+                && (broad[i][j] == '*' || broad[i][j] == 'F'))
             {
                 hidden++;
             }
